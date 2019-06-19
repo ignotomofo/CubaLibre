@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntercambriarBiblio", "IntercambriarBiblio\IntercambriarBiblio.csproj", "{43EEF421-5123-42E8-950A-B90368C7C516}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exportador", "exportador\exportador.csproj", "{E81CA8CF-C83A-4049-B197-17606DB091C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43EEF421-5123-42E8-950A-B90368C7C516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43EEF421-5123-42E8-950A-B90368C7C516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43EEF421-5123-42E8-950A-B90368C7C516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43EEF421-5123-42E8-950A-B90368C7C516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E81CA8CF-C83A-4049-B197-17606DB091C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E81CA8CF-C83A-4049-B197-17606DB091C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E81CA8CF-C83A-4049-B197-17606DB091C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E81CA8CF-C83A-4049-B197-17606DB091C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
