@@ -8,6 +8,13 @@ using Microsoft.Exchange.WebServices.Data;
 
 namespace exportador
 {
+    /*
+     * This program provides a quick and dirty method of exporting a users Exchange inbox
+     * to .eml format. See the App.Config file for instructions on how to configure.
+     *
+     * If in a hurry run with "-i" flag to run in interactive mode.
+     *
+     */
     class Program
     {
         private static readonly string Fs = Path.DirectorySeparatorChar.ToString();
@@ -21,7 +28,7 @@ namespace exportador
             if (accounts == null || accounts.Count == 0)
             {
                 isInteractive = true;
-                Console.WriteLine("No accounts have been configure, going to interactive mode.");
+                Console.WriteLine("No accounts have been configured, going to interactive mode.");
             }
 
             if (isInteractive)
@@ -92,7 +99,6 @@ namespace exportador
             Console.WriteLine($"Exporting to {t.Account} SentItems");
             s.ExportMail(exportPath + $"{Fs}SentItems", WellKnownFolderName.SentItems);
             Console.WriteLine($"Complete.");
-
         }
     }
 }
