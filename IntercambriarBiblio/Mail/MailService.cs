@@ -57,7 +57,7 @@ namespace IntercambriarBiblio.Mail
             email.Send();
         }
 
-        public void ExportMail(string exportFolder, WellKnownFolderName wkfn)
+        public int ExportMail(string exportFolder, WellKnownFolderName wkfn)
         {
             DirectoryInfo di;
             if (!Directory.Exists(exportFolder))
@@ -69,21 +69,20 @@ namespace IntercambriarBiblio.Mail
                 di = new DirectoryInfo(exportFolder);
             }
 
-            ExportMimeEmail(Service, wkfn, exportFolder);
+            return ExportMimeEmail(Service, wkfn, exportFolder);
         }
 
-        private static void ExportMimeEmail(ExchangeService service, WellKnownFolderName folderName, string path)
+        private static int ExportMimeEmail(ExchangeService service, WellKnownFolderName folderName, string path)
         {
             const int offset = 0;
             const int pageSize = 100;
             var more = true;
-            Console.WriteLine($"URL: {service.Url}");
             var inbox = Folder.Bind(service, folderName);
             var view = new ItemView(pageSize, offset, OffsetBasePoint.Beginning)
             {
                 PropertySet = new PropertySet(ItemSchema.Id, ItemSchema.DateTimeCreated, ItemSchema.DateTimeReceived)
             };
-
+            var count = 0;
             while (more)
             {
                 var results = inbox.FindItems(view);
@@ -93,8 +92,8 @@ namespace IntercambriarBiblio.Mail
                     
                     // This results in a GetItem call to EWS.
                     EmailMessage email = EmailMessage.Bind(service, item.Id, props);
-
-                    var emlFileName = $"{path}{Path.PathSeparator}email-{item.DateTimeCreated:yyyyMMddHHmmss}-{item.DateTimeReceived:yyyyMMddHHmmss}.eml";
+                    ++count;
+                    var emlFileName = $"{path}{Path.DirectorySeparatorChar.ToString()}email-{count:D6}-{item.DateTimeCreated:yyyyMMddHHmmss}.eml";
                     // Save as .eml.
                     using (FileStream fs = new FileStream(emlFileName, FileMode.Create, FileAccess.Write))
                     {
@@ -108,6 +107,8 @@ namespace IntercambriarBiblio.Mail
                     view.Offset += pageSize;
                 }
             }
+
+            return count;
         }
     }
 }

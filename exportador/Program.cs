@@ -90,15 +90,17 @@ namespace exportador
                 Directory.Delete(exportPath, true);
             }
             Directory.CreateDirectory(exportPath);
-            var uri = System.Configuration.ConfigurationManager.AppSettings["uri"];
-            var s = (string.IsNullOrWhiteSpace(uri))
+            var uri = ConfigurationManager.AppSettings["uri"];
+            MailService s = (string.IsNullOrWhiteSpace(uri))
                 ? new MailService(t.Account, t.Password)
                 : new MailService(t.Account, t.Password, new Uri(uri));
-            Console.WriteLine($"Exporting to {t.Account} Inbox");
-            s.ExportMail(exportPath + $"{Fs}Inbox", WellKnownFolderName.Inbox);
-            Console.WriteLine($"Exporting to {t.Account} SentItems");
-            s.ExportMail(exportPath + $"{Fs}SentItems", WellKnownFolderName.SentItems);
-            Console.WriteLine($"Complete.");
+            Console.Write($"Exporting to {t.Account} Inbox...");
+            var ic = s.ExportMail(exportPath + $"{Fs}Inbox", WellKnownFolderName.Inbox);
+            Console.WriteLine($"{ic} emails exported.");
+            Console.Write($"Exporting to {t.Account} SentItems");
+            ic = s.ExportMail(exportPath + $"{Fs}SentItems...", WellKnownFolderName.SentItems);
+            Console.WriteLine($"{ic} emails exported.");
+            Console.WriteLine($"{t.Account} export complete.");
         }
     }
 }
